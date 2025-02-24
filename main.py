@@ -7,8 +7,8 @@ from pytile import async_login
 app = FastAPI()
 
 # Retrieve credentials from environment variables
-TILE_EMAIL = os.environ.get("rudy.egeileh@nolinor.com")
-TILE_PASSWORD = os.environ.get("N0l1nor!")
+TILE_EMAIL = os.environ.get("TILE_EMAIL")
+TILE_PASSWORD = os.environ.get("TILE_PASSWORD")
 
 if not TILE_EMAIL or not TILE_PASSWORD:
     raise Exception("Please set TILE_EMAIL and TILE_PASSWORD environment variables.")
