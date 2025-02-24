@@ -1,10 +1,20 @@
 import os
 import asyncio
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from aiohttp import ClientSession
 from pytile import async_login
 
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with your specific domain if you want to restrict access
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Retrieve credentials from environment variables
 TILE_EMAIL = os.environ.get("TILE_EMAIL")
@@ -22,7 +32,7 @@ async def get_tile_locations():
             tiles = await api.async_get_tiles()
             locations = {}
             for tile in tiles.values():
-                await tile.async_update()  # get the latest location data
+                await tile.async_update()  # get the latest data
                 locations[tile.name] = {
                     "latitude": tile.latitude,
                     "longitude": tile.longitude
